@@ -19,7 +19,7 @@ Parser written to order
 ```
 git clone https://github.com/adichev17/mail-parser
 ```
-## Setup configuration appSettings.json
+### Setup configuration appSettings.json
 * enter your email in the field "ImapUsername"
 * Setup 2-step verification https://myaccount.google.com/security and get app key
 * enter your app ket in the field "ImapPassword"
