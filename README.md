@@ -21,9 +21,9 @@ git clone https://github.com/adichev17/mail-parser
 ```
 ### Setup configuration appSettings.json
 * enter your email in the field "ImapUsername"
-* Setup 2-step verification https://myaccount.google.com/security and get app key
+* setup 2-step verification https://myaccount.google.com/security and get app key
 * enter your app key in the field "ImapPassword"
-* enter folder for parsing (optional. default: All Mail)
+* enter folder for parsing (optional. default: All Mail) in the field "FolderName"
 
 ### Executing program
 
