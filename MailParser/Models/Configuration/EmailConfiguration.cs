@@ -7,26 +7,26 @@
         /// <summary>
         /// Your mail
         /// </summary>
-        public string SmtpServer { get; set; }
+        public string ImapServer { get; set; }
 
         /// <summary>
         /// Your Password 
         /// </summary>
-        public string SmtpUsername { get; set; }
+        public string ImapUsername { get; set; }
 
         /// <summary>
         /// Adress of the SMTP host 
         /// </summary>
-        public string SmtpPassword { get; set; }
+        public string ImapPassword { get; set; }
 
         /// <summary>
         /// Port of the host
         /// </summary>
-        public int SmtpPort { get; set; }
+        public int ImapPort { get; set; }
 
         /// <summary>
         /// Does the smtp host use SSL
         /// </summary>
-        public bool SmtpUseSSL { get; set; }
+        public bool ImapUseSSL { get; set; }
     }
 }

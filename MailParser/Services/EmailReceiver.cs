@@ -29,9 +29,9 @@ namespace MailParser.Services
             using var client = new ImapClient();
             try
             {
-                await client.ConnectAsync(_emailConfiguration.SmtpServer, (_emailConfiguration).SmtpPort, true);
+                await client.ConnectAsync(_emailConfiguration.ImapServer, (_emailConfiguration).ImapPort, true);
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
-                await client.AuthenticateAsync(_emailConfiguration.SmtpUsername, _emailConfiguration.SmtpPassword);
+                await client.AuthenticateAsync(_emailConfiguration.ImapUsername, _emailConfiguration.ImapPassword);
                 var folder = await client.GetFolderAsync(folderName);
                 await folder.OpenAsync(FolderAccess.ReadOnly);
 
