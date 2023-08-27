@@ -4,7 +4,10 @@
     {
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime Created { get; set; }
+        public string Amount { get; set; }
+        /// <summary>
+        /// customer requirement, user form data
+        /// </summary>
+        public string Created { get; set; }
     }
 }

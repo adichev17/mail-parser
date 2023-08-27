@@ -3,6 +3,7 @@ using MailParser.Models;
 using MailParser.Models.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using HtmlAgilityPack;
 
 namespace MailParser.Services
 {
@@ -35,32 +36,47 @@ namespace MailParser.Services
                 if (!message.Subject.Contains("meduza-shop.ru") ||
                     !message.Subject.Contains("Регистрация покупки")) continue;
 
-                var messageBodyText = message.TextBody ?? "";
-                var createdString = messageBodyText.GetBetween("покупки*", "\r").Trim();
-                var amountString = messageBodyText.GetBetween("Сумма по чеку (без копеек)*", "\r").Trim();
-
-                if (!DateTime.TryParse(createdString, out DateTime created))
+                if (string.IsNullOrWhiteSpace(message.HtmlBody))
                 {
-                    _logger.LogError("Error getting \"Created\"");
+                    _logger.LogError($"HtmlBody - {message.HtmlBody}");
                     continue;
                 }
 
-                if (!decimal.TryParse(amountString, out decimal amount))
-                {
-                    _logger.LogError("Error getting \"Amount\"");
-                    continue;
-                }
+                var doc = new HtmlDocument();
+                doc.LoadHtml(message.HtmlBody);
+                var tableNode = doc.DocumentNode.SelectNodes("//table")[1];
+                var trNodes = tableNode.SelectNodes("//tr").Skip(1);
+                var values = trNodes
+                    .Where(trNode =>
+                        trNode.ChildNodes.Count > 3 && !string.IsNullOrWhiteSpace(trNode.ChildNodes[3].InnerText.Trim()))
+                    .Select(trNode => trNode.ChildNodes[3].InnerText.Trim()).ToList();
 
-                var order = new OrderModel()
+                if (values.Count != 4)
                 {
-                    Surname = messageBodyText.GetBetween("Фамилия*", "\r").Trim(),
-                    PhoneNumber = messageBodyText.GetBetween("Телефон*", "\r").Trim(),
-                    Amount = amount,
-                    Created = created
+                    _logger.LogError($"Error parse HTML Nodes. Message Id - {message.MessageId}");
+                    continue;
+                };
+
+                var order = new OrderModel
+                {
+                    Surname = values[0],
+                    PhoneNumber = values[1],
+                    Amount = values[2],
+                    Created = values[3]
                 };
 
                 orders.Add(order);
                 _logger.LogInformation($"{i++} out of {messages.Count()} successfully processed");
+            }
+
+            if (i == messages.Count())
+            {
+                _logger.LogInformation($"All messages successfully processed");
+            }
+            else
+            {
+                _logger.LogInformation($"Successfully processed messages: {i}");
+                _logger.LogInformation($"Error processed messages: {messages.Count() - i}");
             }
 
             var reportExcel = _excelGenerator.Generate(orders);

@@ -31,7 +31,7 @@ namespace MailParser.Services
                 sheet.Cells[row, column + 1].Value = item.Surname;
                 sheet.Cells[row, column + 2].Value = item.PhoneNumber;
                 sheet.Cells[row, column + 3].Value = item.Amount;
-                sheet.Cells[row, column + 4].Value = item.Created.ToString("dd.MM.yyyy");
+                sheet.Cells[row, column + 4].Value = item.Created;
                 row++;
 
                 sheet.Cells[1, 1, row, column + 4].AutoFitColumns();
@@ -50,6 +50,8 @@ namespace MailParser.Services
                 sheet.Cells[1, 1, 1 + models.Count(), 5].Style.Border.BorderAround(ExcelBorderStyle.Double);
                 sheet.Cells[1, 1, 1, 5].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             }
+
+            _logger.LogInformation("Report generated");
 
             return package.GetAsByteArray();
         }
