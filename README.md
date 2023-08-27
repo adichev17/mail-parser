@@ -27,12 +27,12 @@ git clone https://github.com/adichev17/mail-parser
 
 ### Executing program
 
-## Build for Windows
+#### Build for Windows
 ```
 dotnet publish -o "{path}" -c Release -r win10-x64 -p:PublishSingleFile=true --self-contained true
 ```
 
-## Build for Linux
+#### Build for Linux
 ```
 dotnet publish -o "{path}" -c Release -r ubuntu.16.10-x64 -p:PublishSingleFile=true --self-contained true
 ```
