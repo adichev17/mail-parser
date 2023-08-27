@@ -4,7 +4,7 @@ Mail Parser
 
 ## Description
 
-Parse certain messages from the mail and generate a report in excel
+Parse certain messages from the mail and generate a report in excel  
 Parser written to order
 
 ## Getting Started
