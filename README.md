@@ -1,1 +1,31 @@
-# MailParser
+# Project Title
+
+Mail Parser
+
+## Description
+
+Parse certain messages from the mail and generate a report in excel
+Parser written to order
+
+## Getting Started
+
+### Dependencies
+
+* .NET 7
+  
+### Installing
+
+```
+git clone https://github.com/adichev17/mail-parser
+```
+## Setup configuration appSettings.json
+* enter your email in the field "ImapUsername"
+* Setup 2-step verification https://myaccount.google.com/security and get app key
+* enter your app ket in the field "ImapPassword"
+* enter folder for parsing (optional. default: All Mail)
+
+### Executing program
+
+```
+dotnet publish -o "{path}" -c Release -r win10-x64 -p:PublishSingleFile=true --self-contained true
+```
