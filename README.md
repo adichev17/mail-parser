@@ -27,6 +27,12 @@ git clone https://github.com/adichev17/mail-parser
 
 ### Executing program
 
+#### Run
+
+```
+dotnet run --project "{path}"
+```
+
 #### Build for Windows
 ```
 dotnet publish -o "{path}" -c Release -r win10-x64 -p:PublishSingleFile=true --self-contained true
