@@ -7,6 +7,11 @@ Mail Parser
 Parse certain messages from the mail and generate a report in excel <br/>
 Parser written to order
 
+## Stack
+
+.NET 7.
+Libraries: NETCore.MailKit, EPPlus
+
 ## Getting Started
 
 ### Dependencies
